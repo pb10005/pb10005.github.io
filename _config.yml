@@ -1,5 +1,6 @@
 name: PB10001
-title: メモ
+title: PB10001
+description: 個人的なメモ
 footer-links:
   github: pb10001
 theme: jekyll-theme-cayman
