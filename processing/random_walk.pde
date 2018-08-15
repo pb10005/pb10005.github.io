@@ -15,21 +15,24 @@ List<Particle> particles = new ArrayList<Particle>();//list of particles
 
 void setup(){
   size(600, 600);
-  for(int i=0;i<num;i++){
-    //particles.add(new Particle(300,300));
-  }
 }
 void draw(){
   background(0);
   List<Particle> tmp = new ArrayList<Particle>();
+  List<Particle> rm = new ArrayList<Particle>();
   for(Particle p: particles){
-    p.draw();
+    Boolean res = p.draw();
     Particle q = p.walk();
     if(q != null)
       tmp.add(q);
+    if(!res)
+      rm.add(p);     
   }
   for(Particle p: tmp){
     particles.add(p);
+  }
+  for(Particle p: rm){
+    particles.remove(p);
   }
 }
 void mouseClicked(){
@@ -55,11 +58,14 @@ class Particle{
     p.setColor(r,g,b);
     return p;
   }
-  void draw(){
-    if(life <= 0) return;
+  Boolean draw(){
+    if(life <= 0){
+      return false;
+    }
     stroke(r,g,b,opacity);
     fill(r,g,b, opacity);
     ellipse(x,y,radius,radius);
+    return true;
   }
   void setColor(float r, float g, float b){
     this.r = r;
