@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Collections;
+
+/* constant values */
+final int num = 10;
+final int speed = 5;
+final float opacity = 128;
+final float radius = 5;
+final int initLife = 1000;
+
+
+List<Particle> particles = new ArrayList<Particle>();//list of particles
+
+void setup(){
+  size(600, 600);
+}
+void draw(){
+  background(0);
+  List<Particle> rm = new ArrayList<Particle>();
+  for(Particle p: particles){
+    p.grow();
+    Boolean res = p.draw();
+    if(!res){
+      rm.add(res);
+    }
+  }
+}
+void mouseClicked(){
+  Particle p =new Particle(mouseX, mouseY, initLife);
+  particles.add(p);
+}
+class Particle{
+  public Particle(float x, float y, int life){
+    this.x = x;
+    this.y = y;
+    this.life = life;
+    setColor(random(255), random(255), random(255));
+  }
+  float x,y;
+  float r,g,b;
+  float radius;
+  Boolean canGenerate = true;
+  int life;
+  void grow(){
+    radius++;
+    life--;
+  }
+  Boolean draw(){
+    if(life <= 0){
+      return false;
+    }
+    stroke(r,g,b,opacity);
+    fill(0);
+    ellipse(x,y,radius,radius);
+    return true;
+  }
+  void setColor(float r, float g, float b){
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+}
