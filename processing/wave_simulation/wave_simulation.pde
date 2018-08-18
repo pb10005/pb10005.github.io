@@ -9,6 +9,7 @@ final float radius = 5;
 final int initLife = 150;
 final float dumping = 0.97;
 
+int state = 0;
 List<Wave> waves = new ArrayList<Wave>();//list of particles
 
 void setup(){
@@ -30,6 +31,11 @@ void draw(){
   }
   if(mousePressed){
     Wave w =new Wave(mouseX, mouseY, initLife);
+    if(state >= 4) state = 0;
+    else state++;
+    if(state == 0) w.opacity = 255;
+    else if(state == 1 || state == 3) w.opacity = 128;
+    else w.opacity = 0;
     waves.add(w);
   }
 }
@@ -39,35 +45,25 @@ class Wave{
     this.y = y;
     this.life = life;
     this.radius = 0;
-    this.opacity = 255;
     setColor(255,255,255);
-    state = 0;
   }
   float x,y;
   float r,g,b;
   float radius;
   float opacity;
-  int state;
   Boolean canGenerate = true;
   int life;
   void grow(){
     radius+= speed;
     life--;
-    opacity *= dumping;
-    if(state >= 4) state = 0;
-    else state++;
+    opacity = 128 + (128 - opacity) * dumping;
   }
   Boolean draw(){
     if(life <= 0){
       return false;
     }
     strokeWeight(speed/2);
-    if(state == 0){
-      stroke(r,g,b,opacity);
-    }
-    else if(state == 1 || state == 3){
-      stroke(r,g,b,opacity/2);
-    }
+    stroke(r,g,b,opacity);
     fill(0,0,0,0);
     ellipse(x,y,radius,radius);
     return true;
