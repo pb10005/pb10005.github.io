@@ -57,6 +57,7 @@ class Wave{
     if(life <= 0){
       return false;
     }
+    strokeWeight(speed/2);
     stroke(r,g,b,opacity);
     fill(0,0,0,0);
     ellipse(x,y,radius,radius);
