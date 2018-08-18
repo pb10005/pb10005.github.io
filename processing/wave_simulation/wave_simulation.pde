@@ -41,24 +41,33 @@ class Wave{
     this.radius = 0;
     this.opacity = 255;
     setColor(255,255,255);
+    state = 0;
   }
   float x,y;
   float r,g,b;
   float radius;
   float opacity;
+  int state;
   Boolean canGenerate = true;
   int life;
   void grow(){
     radius+= speed;
     life--;
     opacity *= dumping;
+    if(state >= 4) state = 0;
+    else state++;
   }
   Boolean draw(){
     if(life <= 0){
       return false;
     }
-    strokeWeight(speed/2);
-    stroke(r,g,b,opacity);
+    strokeWeight(speed/4);
+    if(state == 0){
+      stroke(r,g,b,opacity);
+    }
+    else if(state == 1 || state == 3){
+      stroke(r,g,b,opacity/2);
+    }
     fill(0,0,0,0);
     ellipse(x,y,radius,radius);
     return true;
