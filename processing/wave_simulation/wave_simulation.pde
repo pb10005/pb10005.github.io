@@ -61,7 +61,7 @@ class Wave{
     if(life <= 0){
       return false;
     }
-    strokeWeight(speed/4);
+    strokeWeight(speed/2);
     if(state == 0){
       stroke(r,g,b,opacity);
     }
