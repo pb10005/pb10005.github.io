@@ -4,57 +4,60 @@ import java.util.List;
 import java.util.Collections;
 
 /* constant values */
-final int speed = 2;
+final int speed = 10;
 final float radius = 5;
-final int initLife = 100;
+final int initLife = 150;
+final float dumping = 0.97;
 
-
-List<Particle> particles = new ArrayList<Particle>();//list of particles
+List<Wave> waves = new ArrayList<Wave>();//list of particles
 
 void setup(){
-  size(600, 600);
+  size(1000, 600);
   frameRate(30);
 }
 void draw(){
   background(0);
-  List<Particle> rm = new ArrayList<Particle>();
-  for(Particle p: particles){
-    p.grow();
-    Boolean res = p.draw();
+  List<Wave> rm = new ArrayList<Wave>();
+  for(Wave w: waves){
+    w.grow();
+    Boolean res = w.draw();
     if(!res){
-      rm.add(p);
+      rm.add(w);
     }
   }
-  for(Particle p: rm){
-    particles.remove(p);
+  for(Wave w: rm){
+    waves.remove(w);
+  }
+  if(mousePressed){
+    Wave w =new Wave(mouseX, mouseY, initLife);
+    waves.add(w);
   }
 }
-void mouseDragged(){
-  Particle p =new Particle(mouseX, mouseY, initLife);
-  particles.add(p);
-}
-class Particle{
-  public Particle(float x, float y, int life){
+class Wave{
+  public Wave(float x, float y, int life){
     this.x = x;
     this.y = y;
     this.life = life;
     this.radius = 0;
-    setColor(random(255), random(255), random(255));
+    this.opacity = 255;
+    setColor(255,255,255);
   }
   float x,y;
   float r,g,b;
   float radius;
+  float opacity;
   Boolean canGenerate = true;
   int life;
   void grow(){
     radius+= speed;
     life--;
+    opacity *= dumping;
   }
   Boolean draw(){
     if(life <= 0){
       return false;
     }
-    stroke(r,g,b);
+    stroke(r,g,b,opacity);
     fill(0,0,0,0);
     ellipse(x,y,radius,radius);
     return true;
