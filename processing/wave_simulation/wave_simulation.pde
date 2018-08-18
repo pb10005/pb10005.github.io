@@ -39,6 +39,7 @@ class Wave{
     this.y = y;
     this.life = life;
     this.radius = 0;
+    opacity = 255;
     setColor(255,255,255);
   }
   float x,y;
