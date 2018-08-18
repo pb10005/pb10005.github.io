@@ -9,6 +9,7 @@ final float radius = 5;
 final int initLife = 150;
 final float dumping = 0.97;
 
+Boolean pressing = false;
 List<Wave> waves = new ArrayList<Wave>();//list of particles
 
 void setup(){
@@ -28,10 +29,13 @@ void draw(){
   for(Wave w: rm){
     waves.remove(w);
   }
-  if(mousePressed){
+  if(pressing){
     Wave w =new Wave(mouseX, mouseY, initLife);
     waves.add(w);
   }
+}
+void mousePressed(){
+  pressing ^= true;
 }
 class Wave{
   public Wave(float x, float y, int life){
