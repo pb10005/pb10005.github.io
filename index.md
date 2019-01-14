@@ -3,5 +3,5 @@
 数学とアルゴリズムについて
 ## [Brainf**k](/brainfxxk)
 プログラミング言語Brainf**kについて
-## [Processing](/processing)
+## [Processing](/processing-gallery)
 Processingを使った作品のギャラリー
